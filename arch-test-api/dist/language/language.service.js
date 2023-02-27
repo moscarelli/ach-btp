@@ -5,18 +5,32 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.LanguageService = void 0;
 const common_1 = require("@nestjs/common");
+const HanaDbConnectionHandler_1 = require("../Db/HanaDbConnectionHandler");
+const RequestHistoryService_1 = require("../Db/RequestHistoryService");
 const axios_1 = require("axios");
 let LanguageService = class LanguageService {
-    async GetLanguageData(lang) {
+    constructor(dbConnetion, requestHistoryService) {
+        this.dbConnetion = dbConnetion;
+        this.requestHistoryService = requestHistoryService;
+    }
+    async GetLanguageData(lang, username) {
         console.log("Queryng language", lang);
-        return (await axios_1.default.get(`https://restcountries.com/v2/lang/${lang}`)).data;
+        return axios_1.default.get(`https://restcountries.com/v2/lang/${lang}`).then(result => {
+            this.requestHistoryService.insertHistory(username, lang);
+            this.requestHistoryService.getAll();
+            return result.data;
+        });
     }
 };
 LanguageService = __decorate([
-    (0, common_1.Injectable)()
+    (0, common_1.Injectable)(),
+    __metadata("design:paramtypes", [HanaDbConnectionHandler_1.HannaConnectionHandler, RequestHistoryService_1.RequestHistoryService])
 ], LanguageService);
 exports.LanguageService = LanguageService;
 //# sourceMappingURL=language.service.js.map

@@ -1,10 +1,8 @@
-import { HannaConnectionHandler } from '../Db/HanaDbConnectionHandler';
-import { RequestHistoryService } from '../Db/RequestHistoryService';
 import { LanguageService } from './language.service';
+import { UserRequest } from 'src/UserRequest';
 export declare class LanguageController {
-    private dbConnetion;
-    private requestHistoryService;
     private languageService;
-    constructor(dbConnetion: HannaConnectionHandler, requestHistoryService: RequestHistoryService, languageService: LanguageService);
-    GetRequests(language: string): Promise<any>;
+    constructor(languageService: LanguageService);
+    GetRequests(request: UserRequest, language: string): Promise<any>;
+    GetRequestsPass(request: UserRequest, language: string): Promise<any>;
 }

@@ -14,31 +14,48 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.LanguageController = void 0;
 const common_1 = require("@nestjs/common");
-const HanaDbConnectionHandler_1 = require("../Db/HanaDbConnectionHandler");
-const RequestHistoryService_1 = require("../Db/RequestHistoryService");
 const language_service_1 = require("./language.service");
+const common_2 = require("@nestjs/common");
+const AllowUnauthorizedRequest = () => (0, common_2.SetMetadata)('allowUnauthorizedRequest', true);
 let LanguageController = class LanguageController {
-    constructor(dbConnetion, requestHistoryService, languageService) {
-        this.dbConnetion = dbConnetion;
-        this.requestHistoryService = requestHistoryService;
+    constructor(languageService) {
         this.languageService = languageService;
     }
-    async GetRequests(language) {
-        var data = await this.languageService.GetLanguageData(language);
-        console.log("data", data);
+    async GetRequests(request, language) {
+        const user = request.user;
+        const username = user ? user.id : 'anonymous';
+        console.log("Username", username);
+        var data = await this.languageService.GetLanguageData(language, username);
+        return data;
+    }
+    async GetRequestsPass(request, language) {
+        const user = request.user;
+        const username = user ? user.id : 'anonymous';
+        console.log("Username", username);
+        var data = await this.languageService.GetLanguageData(language, username);
         return data;
     }
 };
 __decorate([
     (0, common_1.Get)(),
-    __param(0, (0, common_1.Query)('language')),
+    __param(0, (0, common_1.Request)()),
+    __param(1, (0, common_1.Query)('language')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [Object, String]),
     __metadata("design:returntype", Promise)
 ], LanguageController.prototype, "GetRequests", null);
+__decorate([
+    (0, common_1.Get)('getReq'),
+    AllowUnauthorizedRequest(),
+    __param(0, (0, common_1.Request)()),
+    __param(1, (0, common_1.Query)('language')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, String]),
+    __metadata("design:returntype", Promise)
+], LanguageController.prototype, "GetRequestsPass", null);
 LanguageController = __decorate([
     (0, common_1.Controller)('language'),
-    __metadata("design:paramtypes", [HanaDbConnectionHandler_1.HannaConnectionHandler, RequestHistoryService_1.RequestHistoryService, language_service_1.LanguageService])
+    __metadata("design:paramtypes", [language_service_1.LanguageService])
 ], LanguageController);
 exports.LanguageController = LanguageController;
 //# sourceMappingURL=language.controller.js.map

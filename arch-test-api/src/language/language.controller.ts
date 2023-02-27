@@ -1,21 +1,33 @@
-import { Controller, Get, HttpException, Param, Query  } from '@nestjs/common';
-import {HannaConnectionHandler} from '../Db/HanaDbConnectionHandler'
-import {RequestHistoryService,RequestHistory}  from '../Db/RequestHistoryService'
+import { Controller, Get, HttpException, Param, Query,Request ,UseGuards   } from '@nestjs/common';
 import { LanguageService } from './language.service';
+import {AuthenticationMiddleware} from '../authenticationMiddleware'
+import { UserRequest } from 'src/UserRequest';
+import { SetMetadata } from '@nestjs/common';
+const AllowUnauthorizedRequest = () => SetMetadata('allowUnauthorizedRequest', true);
 @Controller('language')
-export class LanguageController {
-    constructor(private dbConnetion: HannaConnectionHandler, private requestHistoryService :RequestHistoryService, private languageService: LanguageService) {}
 
-    @Get()
-    async GetRequests(@Query('language') language:string): Promise<any> {
-        //await this.dbConnetion.GetConnection()     
-        // var data :  RequestHistory[];
-        // data = await this.requestHistoryService.executeQuery()
-        // console.log("data",data);
-        //return await getdata()       
-        var data =  await this.languageService.GetLanguageData(language);
-        
-        console.log("data",data);
+export class LanguageController {
+    constructor(private languageService: LanguageService) {}
+
+    @Get()   
+    //@UseGuards(AuthenticationMiddleware)  
+    async GetRequests(@Request() request: UserRequest, @Query('language') language:string): Promise<any> {    
+        const user = request.user;
+        const username = user ? user.id : 'anonymous';   
+        console.log("Username", username);
+        var data =  await this.languageService.GetLanguageData(language, username);               
+        return data      
+    }
+
+
+
+    @Get('getReq') 
+    @AllowUnauthorizedRequest()      
+    async GetRequestsPass(@Request() request: UserRequest, @Query('language') language:string): Promise<any> {    
+        const user = request.user;
+        const username = user ? user.id : 'anonymous';   
+        console.log("Username", username);
+        var data =  await this.languageService.GetLanguageData(language, username);               
         return data      
       }
 
