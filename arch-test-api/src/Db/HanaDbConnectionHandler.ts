@@ -1,7 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import * as hana from '@sap/hana-client';
-import { disconnect } from 'process';
-//import {RequestHistory}  from './RequestHistoryService'
 
 @Injectable()
 export class HannaConnectionHandler {

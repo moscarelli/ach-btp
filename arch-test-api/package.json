@@ -25,6 +25,7 @@
     "@nestjs/core": "^9.0.0",
     "@nestjs/platform-express": "^9.0.0",
     "@sap/hana-client": "^2.15.22",
+    "flatted": "^3.2.7",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.2.0"
   },

@@ -8,7 +8,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.LanguageService = void 0;
 const common_1 = require("@nestjs/common");
+const axios_1 = require("axios");
 let LanguageService = class LanguageService {
+    async GetLanguageData(lang) {
+        console.log("Queryng language", lang);
+        return (await axios_1.default.get(`https://restcountries.com/v2/lang/${lang}`)).data;
+    }
 };
 LanguageService = __decorate([
     (0, common_1.Injectable)()
