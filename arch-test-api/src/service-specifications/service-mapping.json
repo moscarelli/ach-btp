@@ -4,4 +4,4 @@
       "servicePath": "/sap/opu/odata/sap/API_BUSINESS_PARTNER",
       "npmPackageName": "business-partner-service"
     }
-  }
+}
