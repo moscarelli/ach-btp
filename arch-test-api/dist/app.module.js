@@ -14,11 +14,15 @@ const language_service_1 = require("./language/language.service");
 const business_partner_controller_1 = require("./business-partner/business-partner.controller");
 const language_controller_1 = require("./language/language.controller");
 const business_partner_service_1 = require("./business-partner/business-partner.service");
+const config_1 = require("@nestjs/config");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [],
+        imports: [config_1.ConfigModule.forRoot({
+                isGlobal: true,
+                envFilePath: '../.env',
+            })],
         controllers: [app_controller_1.AppController, business_partner_controller_1.BusinessPartnerController, language_controller_1.LanguageController],
         providers: [app_service_1.AppService, business_partner_service_1.BusinessPartnerService, language_service_1.LanguageService],
     })

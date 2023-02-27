@@ -3,21 +3,27 @@ import * as hana from '@sap/hana-client';
 import { disconnect } from 'process';
 
 
+
 export function getdata()
 {
 
 const connection = hana.createConnection();
 
 // const connParams = {
-//   host: 'cb9b51a3-16ef-4c23-bebb-c743945fe06a.hana.trial-us10.hanacloud.ondemand.com',
-//   port: '443',
+//   serverNode: 'cb9b51a3-16ef-4c23-bebb-c743945fe06a.hana.trial-us10.hanacloud.ondemand.com:443',  
 //   uid: 'DBADMIN',
-//   password: 'SapTest1',  
-//   databaseName: 'dev_test'
+//   pwd: 'SapTest1'  
 // };
+const connParams = {
+    serverNode: process.env.HANNA_DB_NODE,  
+    uid: process.env.HANNA_DB_USER,  
+    pwd: process.env.HANNA_DB_PASSWORD 
+  };
+console.log("DB Params",connParams);
 
+//'serverNode=cb9b51a3-16ef-4c23-bebb-c743945fe06a.hana.trial-us10.hanacloud.ondemand.com:443;uid=DBADMIN;pwd=SapTest1'
 
-    connection.connect('serverNode=cb9b51a3-16ef-4c23-bebb-c743945fe06a.hana.trial-us10.hanacloud.ondemand.com:443;uid=DBADMIN;pwd=SapTest1', (err: any) => {
+    connection.connect(connParams, (err: any) => {
     if (err) {
         console.error(err);
     } else {

@@ -5,9 +5,14 @@ import { LanguageService } from './language/language.service';
 import { BusinessPartnerController } from './business-partner/business-partner.controller';
 import { LanguageController } from './language/language.controller';
 import { BusinessPartnerService } from './business-partner/business-partner.service';
+import { ConfigModule } from '@nestjs/config';
 
-@Module({
-  imports: [],
+
+@Module({  
+  imports: [ConfigModule.forRoot({
+    isGlobal: true,
+    envFilePath: '../.env',
+  })],
   controllers: [AppController, BusinessPartnerController, LanguageController],
   providers: [AppService, BusinessPartnerService, LanguageService],
 })
