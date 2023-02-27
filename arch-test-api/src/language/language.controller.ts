@@ -1,4 +1,11 @@
-import { Controller } from '@nestjs/common';
-
+import { Controller, Get, HttpException  } from '@nestjs/common';
+import {getdata} from '../Db/hannaDb';
 @Controller('language')
-export class LanguageController {}
+export class LanguageController {
+
+    @Get()
+    async GetRequests(): Promise<any> {
+        return await getdata()        
+      }
+
+}
