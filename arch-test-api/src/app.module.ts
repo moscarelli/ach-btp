@@ -15,7 +15,7 @@ import {AuthenticationMiddleware} from './authenticationMiddleware'
 @Module({  
   imports: [ConfigModule.forRoot({
     isGlobal: true,
-    envFilePath: '../.env',
+    envFilePath: '.env',
   }),
   HttpModule],
   controllers: [AppController, BusinessPartnerController, LanguageController],

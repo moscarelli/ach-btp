@@ -30,7 +30,7 @@ AppModule = __decorate([
     (0, common_1.Module)({
         imports: [config_1.ConfigModule.forRoot({
                 isGlobal: true,
-                envFilePath: '../.env',
+                envFilePath: '.env',
             }),
             axios_1.HttpModule],
         controllers: [app_controller_1.AppController, business_partner_controller_1.BusinessPartnerController, language_controller_1.LanguageController],
