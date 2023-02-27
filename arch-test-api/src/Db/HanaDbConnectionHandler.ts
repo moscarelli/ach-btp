@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import * as hana from '@sap/hana-client';
 import { disconnect } from 'process';
-import {RequestHistory}  from './RequestHistory'
+//import {RequestHistory}  from './RequestHistoryService'
 
 @Injectable()
 export class HannaConnectionHandler {
-    private connection: hana.Connection;
+    public connection: hana.Connection;
 
     private connParams = {
         serverNode: process.env.HANNA_DB_NODE,  
@@ -28,38 +28,6 @@ export class HannaConnectionHandler {
             }
           });
      }
-    
-
-    async GetConnection(): Promise<any[]> {
-        return this.connection.connect(this.connParams, err =>{
-            if(err){
-                console.log(err);
-            }  
-            else{
-                console.log("Hanna DB Async Connection OK")
-            }
-        });
-    }
-   
-    async executeQuery(): Promise<RequestHistory[]> {
-        const sql = 'SELECT * FROM "request_history"';
-        return new Promise<RequestHistory[]>((resolve, reject) => {
-          this.connection.exec(sql, (err: any, rows: any[]) => {
-            if (err) {
-              reject(err);
-            } else {
-              const requestHistory: RequestHistory[] = rows.map(row => {
-                return {
-                  ID: row.ID,
-                  USER: row.USER,
-                  PARAMETERS: row.PARAMETERS,                 
-                };
-              });
-              resolve(requestHistory);
-            }
-          });
-        });
-    }    
 
     private disconect(){
      this.connection.disconnect((err: any) => {

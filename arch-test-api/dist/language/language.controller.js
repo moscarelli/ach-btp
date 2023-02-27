@@ -12,13 +12,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.LanguageController = void 0;
 const common_1 = require("@nestjs/common");
 const HanaDbConnectionHandler_1 = require("../Db/HanaDbConnectionHandler");
+const RequestHistoryService_1 = require("../Db/RequestHistoryService");
 let LanguageController = class LanguageController {
-    constructor(dbConnetion) {
+    constructor(dbConnetion, requestHistoryService) {
         this.dbConnetion = dbConnetion;
+        this.requestHistoryService = requestHistoryService;
     }
     async GetRequests() {
         var data;
-        data = await this.dbConnetion.executeQuery();
+        data = await this.requestHistoryService.executeQuery();
         console.log("data", data);
     }
 };
@@ -30,7 +32,7 @@ __decorate([
 ], LanguageController.prototype, "GetRequests", null);
 LanguageController = __decorate([
     (0, common_1.Controller)('language'),
-    __metadata("design:paramtypes", [HanaDbConnectionHandler_1.HannaConnectionHandler])
+    __metadata("design:paramtypes", [HanaDbConnectionHandler_1.HannaConnectionHandler, RequestHistoryService_1.RequestHistoryService])
 ], LanguageController);
 exports.LanguageController = LanguageController;
 //# sourceMappingURL=language.controller.js.map

@@ -16,6 +16,7 @@ const language_controller_1 = require("./language/language.controller");
 const business_partner_service_1 = require("./business-partner/business-partner.service");
 const config_1 = require("@nestjs/config");
 const HanaDbConnectionHandler_1 = require("./Db/HanaDbConnectionHandler");
+const RequestHistoryService_1 = require("./Db/RequestHistoryService");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -25,7 +26,7 @@ AppModule = __decorate([
                 envFilePath: '../.env',
             })],
         controllers: [app_controller_1.AppController, business_partner_controller_1.BusinessPartnerController, language_controller_1.LanguageController],
-        providers: [app_service_1.AppService, business_partner_service_1.BusinessPartnerService, language_service_1.LanguageService, HanaDbConnectionHandler_1.HannaConnectionHandler],
+        providers: [app_service_1.AppService, business_partner_service_1.BusinessPartnerService, language_service_1.LanguageService, HanaDbConnectionHandler_1.HannaConnectionHandler, RequestHistoryService_1.RequestHistoryService],
     })
 ], AppModule);
 exports.AppModule = AppModule;
