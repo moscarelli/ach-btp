@@ -6,6 +6,7 @@ import { BusinessPartnerController } from './business-partner/business-partner.c
 import { LanguageController } from './language/language.controller';
 import { BusinessPartnerService } from './business-partner/business-partner.service';
 import { ConfigModule } from '@nestjs/config';
+import {HannaConnectionHandler} from './Db/HanaDbConnectionHandler'
 
 
 @Module({  
@@ -14,6 +15,6 @@ import { ConfigModule } from '@nestjs/config';
     envFilePath: '../.env',
   })],
   controllers: [AppController, BusinessPartnerController, LanguageController],
-  providers: [AppService, BusinessPartnerService, LanguageService],
+  providers: [AppService, BusinessPartnerService, LanguageService,HannaConnectionHandler],
 })
 export class AppModule {}

@@ -11,10 +11,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.LanguageController = void 0;
 const common_1 = require("@nestjs/common");
-const hannaDb_1 = require("../Db/hannaDb");
+const HanaDbConnectionHandler_1 = require("../Db/HanaDbConnectionHandler");
 let LanguageController = class LanguageController {
+    constructor(dbConnetion) {
+        this.dbConnetion = dbConnetion;
+    }
     async GetRequests() {
-        return await (0, hannaDb_1.getdata)();
+        var data;
+        data = await this.dbConnetion.executeQuery();
+        console.log("data", data);
     }
 };
 __decorate([
@@ -24,7 +29,8 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], LanguageController.prototype, "GetRequests", null);
 LanguageController = __decorate([
-    (0, common_1.Controller)('language')
+    (0, common_1.Controller)('language'),
+    __metadata("design:paramtypes", [HanaDbConnectionHandler_1.HannaConnectionHandler])
 ], LanguageController);
 exports.LanguageController = LanguageController;
 //# sourceMappingURL=language.controller.js.map
