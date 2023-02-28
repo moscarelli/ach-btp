@@ -4,5 +4,4 @@ export declare class LanguageController {
     private languageService;
     constructor(languageService: LanguageService);
     GetRequests(request: UserRequest, language: string): Promise<any>;
-    GetRequestsPass(request: UserRequest, language: string): Promise<any>;
 }

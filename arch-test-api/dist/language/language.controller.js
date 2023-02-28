@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.LanguageController = void 0;
 const common_1 = require("@nestjs/common");
 const language_service_1 = require("./language.service");
+const authenticationMiddleware_1 = require("../authenticationMiddleware");
 const common_2 = require("@nestjs/common");
 const AllowUnauthorizedRequest = () => (0, common_2.SetMetadata)('allowUnauthorizedRequest', true);
 let LanguageController = class LanguageController {
@@ -22,13 +23,6 @@ let LanguageController = class LanguageController {
         this.languageService = languageService;
     }
     async GetRequests(request, language) {
-        const user = request.user;
-        const username = user ? user.id : 'anonymous';
-        console.log("Username", username);
-        var data = await this.languageService.GetLanguageData(language, username);
-        return data;
-    }
-    async GetRequestsPass(request, language) {
         const user = request.user;
         const username = user ? user.id : 'anonymous';
         console.log("Username", username);
@@ -44,17 +38,9 @@ __decorate([
     __metadata("design:paramtypes", [Object, String]),
     __metadata("design:returntype", Promise)
 ], LanguageController.prototype, "GetRequests", null);
-__decorate([
-    (0, common_1.Get)('getReq'),
-    AllowUnauthorizedRequest(),
-    __param(0, (0, common_1.Request)()),
-    __param(1, (0, common_1.Query)('language')),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, String]),
-    __metadata("design:returntype", Promise)
-], LanguageController.prototype, "GetRequestsPass", null);
 LanguageController = __decorate([
     (0, common_1.Controller)('language'),
+    (0, common_1.UseGuards)(authenticationMiddleware_1.AuthenticationMiddleware),
     __metadata("design:paramtypes", [language_service_1.LanguageService])
 ], LanguageController);
 exports.LanguageController = LanguageController;
