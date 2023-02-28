@@ -20,10 +20,13 @@ import { HealthCheckController } from './health-check/health-check.controller';
   controllers: [AppController,  LanguageController, HealthCheckController],
   providers: [AppService, LanguageService,HannaConnectionHandler,RequestHistoryService],
 })
-export class AppModule implements NestModule {
-  configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(AuthenticationMiddleware)
-      .forRoutes('/language');
-  }
-}
+
+export class AppModule {}
+
+// export class AppModule implements NestModule {
+//   configure(consumer: MiddlewareConsumer) {
+//     consumer
+//       .apply(AuthenticationMiddleware)
+//       .forRoutes('/language');
+//   }
+// }

@@ -16,14 +16,8 @@ const language_controller_1 = require("./language/language.controller");
 const config_1 = require("@nestjs/config");
 const HanaDbConnectionHandler_1 = require("./Db/HanaDbConnectionHandler");
 const RequestHistoryService_1 = require("./Db/RequestHistoryService");
-const authenticationMiddleware_1 = require("./authenticationMiddleware");
 const health_check_controller_1 = require("./health-check/health-check.controller");
 let AppModule = class AppModule {
-    configure(consumer) {
-        consumer
-            .apply(authenticationMiddleware_1.AuthenticationMiddleware)
-            .forRoutes('/language');
-    }
 };
 AppModule = __decorate([
     (0, common_1.Module)({
