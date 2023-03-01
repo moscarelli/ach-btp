@@ -1,0 +1,12 @@
+applications:
+  - name: arch-btp-app
+    path: .
+    buildpacks:
+      - nodejs_buildpack
+    memory: 512M
+    command: npm run start
+    routes:
+      - route: https://arch-btp-app-resplendent-whale-uk.cfapps.us10-001.hana.ondemand.com
+        health-check-type: http
+        health-check-http-endpoint: /health-check
+        health-check-invocation-timeout: 30
