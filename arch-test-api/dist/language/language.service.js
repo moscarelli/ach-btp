@@ -11,12 +11,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.LanguageService = void 0;
 const common_1 = require("@nestjs/common");
-const HanaDbConnectionHandler_1 = require("../Db/HanaDbConnectionHandler");
 const RequestHistoryService_1 = require("../Db/RequestHistoryService");
 const axios_1 = require("axios");
 let LanguageService = class LanguageService {
-    constructor(dbConnetion, requestHistoryService) {
-        this.dbConnetion = dbConnetion;
+    constructor(requestHistoryService) {
         this.requestHistoryService = requestHistoryService;
     }
     async GetLanguageData(lang, username) {
@@ -30,7 +28,7 @@ let LanguageService = class LanguageService {
 };
 LanguageService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [HanaDbConnectionHandler_1.HannaConnectionHandler, RequestHistoryService_1.RequestHistoryService])
+    __metadata("design:paramtypes", [RequestHistoryService_1.RequestHistoryService])
 ], LanguageService);
 exports.LanguageService = LanguageService;
 //# sourceMappingURL=language.service.js.map
